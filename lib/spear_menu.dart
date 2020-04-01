@@ -10,8 +10,8 @@ import 'triangle_painter.dart';
 abstract class MenuItemProvider {
   String get menuTitle;
 
-  bool get activeStatus;
-  actStatus(bool value);
+//  bool get activeStatus;
+//  actStatus(bool value);
 
   TextStyle get menuTextStyle;
 }
@@ -19,25 +19,25 @@ abstract class MenuItemProvider {
 class MenuItem extends MenuItemProvider {
   String title; // Menu title
   TextStyle textStyle;
-  bool isActive;
+  //bool isActive;
 
-  MenuItem({this.title, this.textStyle, this.isActive});
+  MenuItem({this.title, this.textStyle});
 
   @override
   String get menuTitle => title;
 
-  @override
-  bool get activeStatus => isActive ?? false;
+//  @override
+//  bool get activeStatus => isActive ?? false;
 
   @override
 //  TextStyle get menuTextStyle => textStyle ?? TextStyle(color: Color(0xffc5c5c5), fontSize: 14.0);
   TextStyle get menuTextStyle => textStyle ?? TextStyle(color: Colors.black87, fontSize: 14.0);
 
-  @override
-  actStatus(bool value) {
-    // TODO: implement actStatus
-    isActive = value;
-  }
+//  @override
+//  actStatus(bool value) {
+//    // TODO: implement actStatus
+//    isActive = value;
+//  }
 
 }
 
@@ -46,7 +46,7 @@ typedef SpearMenuStateChanged = Function(bool isShow);
 
 class SpearMenu {
 //  static var itemWidth = 152.0;
-  static var itemWidth = MediaQuery.of(context).size.width * 0.50;
+  var itemWidth = MediaQuery.of(context).size.width * 0.50;
   static var itemHeight = 60.0;
   static var arrowHeight = 10.0;
   OverlayEntry _entry;
@@ -92,6 +92,7 @@ class SpearMenu {
         Color highlightColor,
         Color lineColor,
         SpearMenuStateChanged stateChanged,
+        double spearMenuWidth,
         List<MenuItemProvider> items}) {
     this.onClickMenu = onClickMenu;
     this.dismissCallback = onDismiss;
@@ -100,6 +101,7 @@ class SpearMenu {
     this._backgroundColor = backgroundColor ?? Colors.white;
     this._lineColor = lineColor ?? Colors.grey;
     this._highlightColor = highlightColor ?? Colors.grey;
+    this.itemWidth = spearMenuWidth ?? itemWidth;
     if (context != null) {
       SpearMenu.context = context;
     }
@@ -188,7 +190,7 @@ class SpearMenu {
         },
         child: Container(
           decoration: new BoxDecoration(
-              border: new Border.all(width: 2.0, color: Colors.transparent), color: Colors.black.withOpacity(0.5)),
+              border: new Border.all(width: 2.0, color: Colors.transparent), color: Colors.transparent),
           child: Stack(
             children: <Widget>[
               // triangle arrow
@@ -343,8 +345,8 @@ class _MenuItemWidgetState extends State<_MenuItemWidget> {
         }
       },
       child: Container(
-          width: SpearMenu.itemWidth,
-          height: SpearMenu.itemHeight,
+//          width: SpearMenu.itemWidth,
+//          height: SpearMenu.itemHeight,
           decoration: BoxDecoration(
             color: color,
           ),
@@ -353,27 +355,16 @@ class _MenuItemWidgetState extends State<_MenuItemWidget> {
   }
 
   Widget _createContent() {
-    bool activeMode = widget.item.activeStatus;
     return Container(
       padding: EdgeInsets.all(12.0),
       alignment: Alignment.centerLeft,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Material(
-              color: Colors.transparent,
-              child: Text(widget.item.menuTitle, style: widget.item.menuTextStyle.copyWith(fontWeight: activeMode ? FontWeight.bold : FontWeight.normal)),
-            ),
+          Material(
+            color: Colors.transparent,
+            child: Text(widget.item.menuTitle, style: widget.item.menuTextStyle.copyWith(fontWeight: FontWeight.normal)),
           ),
-          Visibility(
-            visible: activeMode,
-            child: Icon(
-              Icons.check,
-              color: Colors.lightGreen,
-            ),
-          )
         ],
       ),
     );

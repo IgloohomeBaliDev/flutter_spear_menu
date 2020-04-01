@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setData.clear();
     for (var io in menuList) {
       print("Result : " + io.name);
-      setData.add(MenuItem(title: io.name, isActive: io.isShow));
+      setData.add(MenuItem(title: io.name));
     }
 
     SpearMenu menu = SpearMenu(
