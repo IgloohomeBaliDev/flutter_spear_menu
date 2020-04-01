@@ -46,7 +46,7 @@ typedef SpearMenuStateChanged = Function(bool isShow);
 
 class SpearMenu {
 //  static var itemWidth = 152.0;
-  var itemWidth = MediaQuery.of(context).size.width * 0.50;
+  static var itemWidth = MediaQuery.of(context).size.width * 0.50;
   static var itemHeight = 60.0;
   static var arrowHeight = 10.0;
   OverlayEntry _entry;
@@ -92,7 +92,7 @@ class SpearMenu {
         Color highlightColor,
         Color lineColor,
         SpearMenuStateChanged stateChanged,
-        double spearMenuWidth,
+        //double spearMenuWidth,
         List<MenuItemProvider> items}) {
     this.onClickMenu = onClickMenu;
     this.dismissCallback = onDismiss;
@@ -101,7 +101,7 @@ class SpearMenu {
     this._backgroundColor = backgroundColor ?? Colors.white;
     this._lineColor = lineColor ?? Colors.grey;
     this._highlightColor = highlightColor ?? Colors.grey;
-    this.itemWidth = spearMenuWidth ?? itemWidth;
+    //this.itemWidth = spearMenuWidth ?? itemWidth;
     if (context != null) {
       SpearMenu.context = context;
     }
@@ -345,8 +345,8 @@ class _MenuItemWidgetState extends State<_MenuItemWidget> {
         }
       },
       child: Container(
-//          width: SpearMenu.itemWidth,
-//          height: SpearMenu.itemHeight,
+          width: SpearMenu.itemWidth,
+          height: SpearMenu.itemHeight,
           decoration: BoxDecoration(
             color: color,
           ),
@@ -356,16 +356,11 @@ class _MenuItemWidgetState extends State<_MenuItemWidget> {
 
   Widget _createContent() {
     return Container(
-      padding: EdgeInsets.all(12.0),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       alignment: Alignment.centerLeft,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Material(
-            color: Colors.transparent,
-            child: Text(widget.item.menuTitle, style: widget.item.menuTextStyle.copyWith(fontWeight: FontWeight.normal)),
-          ),
-        ],
+      child: MaterialButton(
+        color: Colors.transparent,
+        child: Text(widget.item.menuTitle, style: widget.item.menuTextStyle.copyWith(fontWeight: FontWeight.normal)),
       ),
     );
   }
