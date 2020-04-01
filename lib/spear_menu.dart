@@ -31,7 +31,7 @@ class MenuItem extends MenuItemProvider {
 
   @override
 //  TextStyle get menuTextStyle => textStyle ?? TextStyle(color: Color(0xffc5c5c5), fontSize: 14.0);
-  TextStyle get menuTextStyle => textStyle ?? TextStyle(color: Colors.black87, fontSize: 14.0);
+  TextStyle get menuTextStyle => textStyle ?? TextStyle(color: Colors.black87, fontSize: 16.0);
 
 //  @override
 //  actStatus(bool value) {
