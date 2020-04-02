@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'triangle_painter.dart';
 
 abstract class MenuItemProvider {
+  int get menuId;
   String get menuTitle;
 
 //  bool get activeStatus;
@@ -17,14 +18,18 @@ abstract class MenuItemProvider {
 }
 
 class MenuItem extends MenuItemProvider {
+  int id; // Menu Id
   String title; // Menu title
   TextStyle textStyle;
   //bool isActive;
 
-  MenuItem({this.title, this.textStyle});
+  MenuItem({this.id, this.title, this.textStyle});
 
   @override
   String get menuTitle => title;
+
+  @override
+  int get menuId => id;
 
 //  @override
 //  bool get activeStatus => isActive ?? false;
