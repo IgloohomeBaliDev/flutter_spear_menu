@@ -159,14 +159,16 @@ class SpearMenu {
     }
 
     double dy = _showRect.top - menuHeight();
-    if (dy <= MediaQuery.of(context).padding.top + 10) {
-      // The have not enough space above, show menu under the widget.
-      dy = arrowHeight + _showRect.height + _showRect.top;
-      _isDown = false;
-    } else {
-      dy -= arrowHeight;
-      _isDown = true;
-    }
+//    if (dy <= MediaQuery.of(context).padding.top + 10) {
+//      // The have not enough space above, show menu under the widget.
+//      dy = arrowHeight + _showRect.height + _showRect.top;
+//      _isDown = false;
+//    } else {
+//      dy -= arrowHeight;
+//      _isDown = true;
+//    }
+    dy = arrowHeight + _showRect.height + _showRect.top;
+    _isDown = false;
 
     return Offset(dx, dy);
   }
