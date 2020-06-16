@@ -26,8 +26,8 @@ class TrianglePainter extends CustomPainter {
       path.lineTo(size.width, size.height + 1);
     }
 
+    canvas.drawShadow(path, Colors.black, 4, false);
     canvas.drawPath(path, _paint);
-    canvas.drawShadow(path, Colors.black.withOpacity(.2), 2, false);
   }
 
   @override
