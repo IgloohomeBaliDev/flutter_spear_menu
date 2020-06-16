@@ -36,7 +36,8 @@ class MenuItem extends MenuItemProvider {
 
   @override
 //  TextStyle get menuTextStyle => textStyle ?? TextStyle(color: Color(0xffc5c5c5), fontSize: 14.0);
-  TextStyle get menuTextStyle => textStyle ?? TextStyle(color: Colors.black87, fontSize: 16.0);
+  TextStyle get menuTextStyle =>
+      textStyle ?? TextStyle(color: Colors.black87, fontSize: 16.0);
 
 //  @override
 //  actStatus(bool value) {
@@ -53,7 +54,7 @@ class SpearMenu {
 //  static var itemWidth = 152.0;
   static var itemWidth = MediaQuery.of(context).size.width * 0.50;
   static var itemHeight = 60.0;
-  static var arrowHeight = 10.0;
+  static var arrowHeight = 20.0;
   OverlayEntry _entry;
   List<MenuItemProvider> items;
 
@@ -91,14 +92,14 @@ class SpearMenu {
 
   SpearMenu(
       {MenuClickCallback onClickMenu,
-        BuildContext context,
-        VoidCallback onDismiss,
-        Color backgroundColor,
-        Color highlightColor,
-        Color lineColor,
-        SpearMenuStateChanged stateChanged,
-        //double spearMenuWidth,
-        List<MenuItemProvider> items}) {
+      BuildContext context,
+      VoidCallback onDismiss,
+      Color backgroundColor,
+      Color highlightColor,
+      Color lineColor,
+      SpearMenuStateChanged stateChanged,
+      //double spearMenuWidth,
+      List<MenuItemProvider> items}) {
     this.onClickMenu = onClickMenu;
     this.dismissCallback = onDismiss;
     this.stateChanged = stateChanged;
@@ -139,7 +140,8 @@ class SpearMenu {
   static Rect getWidgetGlobalRect(GlobalKey key) {
     RenderBox renderBox = key.currentContext.findRenderObject();
     var offset = renderBox.localToGlobal(Offset.zero);
-    return Rect.fromLTWH(offset.dx, offset.dy, renderBox.size.width, renderBox.size.height);
+    return Rect.fromLTWH(
+        offset.dx, offset.dy, renderBox.size.width, renderBox.size.height);
   }
 
   void _calculatePosition(BuildContext context) {
@@ -197,16 +199,20 @@ class SpearMenu {
         },
         child: Container(
           decoration: new BoxDecoration(
-              border: new Border.all(width: 2.0, color: Colors.transparent), color: Colors.transparent),
+              border: new Border.all(width: 2.0, color: Colors.transparent),
+              color: Colors.transparent),
           child: Stack(
             children: <Widget>[
               // triangle arrow
               Positioned(
                 left: _showRect.left + _showRect.width / 2.0 - 7.5,
-                top: _isDown ? offset.dy + menuHeight() : offset.dy - arrowHeight,
+                top: _isDown
+                    ? offset.dy + menuHeight()
+                    : offset.dy - arrowHeight,
                 child: CustomPaint(
-                  size: Size(15.0, arrowHeight),
-                  painter: TrianglePainter(isDown: _isDown, color: _backgroundColor),
+                  size: Size(20.0, arrowHeight),
+                  painter: TrianglePainter(
+                      isDown: _isDown, color: _backgroundColor),
                 ),
               ),
               // menu content
@@ -216,6 +222,21 @@ class SpearMenu {
                 child: Container(
                   width: menuWidth(),
                   height: menuHeight(),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(.1),
+                        spreadRadius: 1,
+                        blurRadius: 3,
+                        offset: Offset(0, 0),
+                      ),
+                    ],
+                  ),
                   child: Column(
                     children: <Widget>[
                       ClipRRect(
@@ -223,8 +244,9 @@ class SpearMenu {
                           child: Container(
                             width: menuWidth(),
                             height: menuHeight(),
-                            decoration:
-                            BoxDecoration(color: _backgroundColor, borderRadius: BorderRadius.circular(10.0)),
+                            decoration: BoxDecoration(
+                                color: _backgroundColor,
+                                borderRadius: BorderRadius.circular(10.0)),
                             child: Column(
                               children: _createRows(),
                             ),
@@ -232,7 +254,7 @@ class SpearMenu {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -244,9 +266,11 @@ class SpearMenu {
   List<Widget> _createRows() {
     List<Widget> rows = [];
     for (int i = 0; i < _row; i++) {
-      Color color = (i < _row - 1 && _row != 1) ? _lineColor : Colors.transparent;
+      Color color =
+          (i < _row - 1 && _row != 1) ? _lineColor : Colors.transparent;
       Widget rowWidget = Container(
-        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: color, width: 0.5))),
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: color, width: 0.5))),
         height: itemHeight,
         child: Row(
           children: _createRowItems(i),
@@ -261,7 +285,8 @@ class SpearMenu {
 
   //Create a line of item,  row Count from 0
   List<Widget> _createRowItems(int row) {
-    List<MenuItemProvider> subItems = items.sublist(row, min(row + 1, items.length));
+    List<MenuItemProvider> subItems =
+        items.sublist(row, min(row + 1, items.length));
     List<Widget> itemWidgets = [];
     for (var item in subItems) {
       itemWidgets.add(_createMenuItem(item));
@@ -314,7 +339,11 @@ class _MenuItemWidget extends StatefulWidget {
 
   final Function(MenuItemProvider item) clickCallback;
 
-  _MenuItemWidget({this.item, this.clickCallback, this.backgroundColor, this.highlightColor});
+  _MenuItemWidget(
+      {this.item,
+      this.clickCallback,
+      this.backgroundColor,
+      this.highlightColor});
 
   @override
   _MenuItemWidgetState createState() => _MenuItemWidgetState();
@@ -367,9 +396,10 @@ class _MenuItemWidgetState extends State<_MenuItemWidget> {
       alignment: Alignment.centerLeft,
       child: MaterialButton(
         color: Colors.transparent,
-        child: Text(widget.item.menuTitle, style: widget.item.menuTextStyle.copyWith(fontWeight: FontWeight.normal)),
+        child: Text(widget.item.menuTitle,
+            style: widget.item.menuTextStyle
+                .copyWith(fontWeight: FontWeight.normal)),
       ),
     );
   }
 }
-

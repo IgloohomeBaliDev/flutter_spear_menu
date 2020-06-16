@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart';
 
 //Draw the triangle below the spear menu
 class TrianglePainter extends CustomPainter {
@@ -26,6 +27,7 @@ class TrianglePainter extends CustomPainter {
     }
 
     canvas.drawPath(path, _paint);
+    canvas.drawShadow(path, Colors.black.withOpacity(.2), 2, false);
   }
 
   @override
